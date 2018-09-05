@@ -1,6 +1,7 @@
 #!/bin/sh
 fpc program.pas
 chmod a+x program
-./program | grep  [0-9] | head -n5
+./program | grep -x "[0-9 ]*" | head -n5
 rm program
 rm program.o
+
