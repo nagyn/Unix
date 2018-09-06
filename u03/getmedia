@@ -1,0 +1,56 @@
+#!/bin/bash
+do_help=no
+retval=0
+webpage=""
+
+
+while [ -n "$1" ]; do
+        case "$1" in
+                --help)
+                        do_help=yes
+                        break
+                        ;;
+                -i)
+                        if [ "$retval" = 0 ]; then
+                                                retval=1
+                        else
+                                                retval=3
+                        fi
+
+                        ;;
+                -s)
+                        if [ "$retval" = 0 ]; then
+                                                retval=2
+                        else
+                                                retval=3
+                        fi
+
+                        ;;
+                 *.html) webpage="$1"
+                        break
+                        ;;
+                *) do_help=yes
+                   break
+                   ;;
+        esac
+        shift
+done
+if [[ "$do_help" = yes ]]; then
+                        echo "-i for images only"
+                        echo "-s for sounds only"
+                        echo "--help for help"
+                        echo "just webpege for both sounds and images"
+fi
+
+if [[ -n "$webpage" ]]; then
+                        if [[ "$retval" -ne 2 ]]; then
+                                                cat "$webpage" | grep -ow "\<[^ ]*.jpg\>"
+                                                cat "$webpage" | grep -ow "\<[^ ]*.png\>"
+                                                cat "$webpage" | grep -ow "\<[^ ]*.svg\>"
+                        fi
+ if [[ "$retval" -ne 1 ]]; then
+                                                cat "$webpage" | grep -ow "\<[^ ]*.waw\>"
+                                                cat "$webpage" | grep -ow "\<[^ ]*.mp3\>"
+                                                cat "$webpage" | grep -ow "\<[^ ]*.ogg\>"
+                        fi
+fi
