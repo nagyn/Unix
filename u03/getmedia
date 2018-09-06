@@ -1,1 +1,51 @@
+#!/bin/bash
+do_help=no
+img=yes
+snd=yes
+webpage =""
+
+
+while [ -n "$1" ]; do
+        case "$1" in
+                --help)
+                        do_help=yes
+                        break
+                        ;;
+                -i)
+                        shift
+                        snd=no
+
+                        ;;
+                -s)
+                        shift
+                        img=no
+
+                        ;;
+                 *.html) webpage="$1"
+                        ;;
+                *) do_help = yes
+                   break
+                   ;;
+        esac
+        shift
+done
+if [[ "$do_help" = yes ]]; then
+                        echo "-i for images only"
+                        echo "-s for sounds only"
+                        echo "--help for help"
+                        echo "just webpege for both sounds and images"
+fi
+if [[ -n "$webpage" ]]; then
+                        if[[ $img = yes ]]; then
+                                                grep -ho ".jpg$"
+                                                grep -ho ".png$"
+                                                grep -ho ".svg$"
+                        fi
+
+                        if [[ $snd = yes ]]; then
+                                                grep -ho ".waw"
+                                                grep -ho ".mp3"
+                                                grep -ho ".ogg"
+                          fi
+fi
 
