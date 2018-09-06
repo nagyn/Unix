@@ -36,7 +36,7 @@ if [[ "$do_help" = yes ]]; then
                         echo "just webpege for both sounds and images"
 fi
 if [[ -n "$webpage" ]]; then
-                        if[[ $img = yes ]]; then
+                        if [[ $img = yes ]]; then
                                                 grep -ho ".jpg$"
                                                 grep -ho ".png$"
                                                 grep -ho ".svg$"
